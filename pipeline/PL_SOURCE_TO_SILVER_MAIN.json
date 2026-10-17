@@ -76,6 +76,11 @@
 				"defaultValue": "neon_postgres"
 			}
 		},
+		"variables": {
+			"test": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
