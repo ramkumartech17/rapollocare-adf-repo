@@ -238,19 +238,6 @@
 				}
 			},
 			{
-				"name": "If Condition1",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Bronze to Silver",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": []
-			},
-			{
 				"name": "Check Load Type",
 				"type": "IfCondition",
 				"dependsOn": [
