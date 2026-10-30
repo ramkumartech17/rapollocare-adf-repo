@@ -370,9 +370,6 @@
 		"parameters": {
 			"table_id": {
 				"type": "string"
-			},
-			"adf_run_id": {
-				"type": "string"
 			}
 		},
 		"variables": {
