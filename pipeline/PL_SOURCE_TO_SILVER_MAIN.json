@@ -48,6 +48,7 @@
 						"value": "@activity('Read Source Tables List').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Ingest from Source to Silver",
@@ -154,7 +155,7 @@
 			},
 			"adf_run_id": {
 				"type": "string",
-				"defaultValue": "a5"
+				"defaultValue": "a2"
 			}
 		},
 		"annotations": []
