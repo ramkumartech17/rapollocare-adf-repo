@@ -613,7 +613,7 @@
 					},
 					"adf_run_id": {
 						"type": "string",
-						"defaultValue": "a4"
+						"defaultValue": "a1"
 					}
 				},
 				"variables": {
@@ -719,7 +719,7 @@
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 2,
-							"retryIntervalInSeconds": 30,
+							"retryIntervalInSeconds": 50,
 							"secureOutput": false,
 							"secureInput": false
 						},
@@ -759,6 +759,7 @@
 								"value": "@activity('Read Source Tables List').output.value",
 								"type": "Expression"
 							},
+							"isSequential": false,
 							"activities": [
 								{
 									"name": "Ingest from Source to Silver",
@@ -784,6 +785,10 @@
 										"parameters": {
 											"table_id": {
 												"value": "@item().table_id",
+												"type": "Expression"
+											},
+											"adf_run_id": {
+												"value": "@pipeline().parameters.adf_run_id",
 												"type": "Expression"
 											}
 										}
@@ -868,12 +873,7 @@
 					},
 					"adf_run_id": {
 						"type": "string",
-						"defaultValue": "a4"
-					}
-				},
-				"variables": {
-					"test": {
-						"type": "String"
+						"defaultValue": "a2"
 					}
 				},
 				"annotations": []
