@@ -136,7 +136,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"notebookPath": {
-									"value": "/rapollocare-repo/rapollocare-adb-repo/Gold/NB_@{item().gold_table_name}",
+									"value": "/Users/ramkjaiswal@outlook.com/rapollocare-repo/rapollocare-adb-repo/Gold/NB_@{item().gold_table_name}",
 									"type": "Expression"
 								}
 							},
