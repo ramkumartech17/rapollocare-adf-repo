@@ -561,7 +561,7 @@
 									"type": "Expression"
 								},
 								"source_file_format": {
-									"value": "@activity('Read Table Details').output.firstRow.source_file_format",
+									"value": "@coalesce(activity('Read Table Details').output.firstRow.source_file_format,'')",
 									"type": "Expression"
 								}
 							}
@@ -1197,6 +1197,23 @@
 											}
 										],
 										"scriptBlockExecutionTimeout": "02:00:00"
+									}
+								},
+								{
+									"name": "Update Pipeline as failed",
+									"type": "Fail",
+									"dependsOn": [
+										{
+											"activity": "Ingest from Source to Silver",
+											"dependencyConditions": [
+												"Failed"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"message": "Inner pipeline failed",
+										"errorCode": "500"
 									}
 								}
 							]
