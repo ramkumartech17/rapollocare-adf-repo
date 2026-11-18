@@ -1,0 +1,12 @@
+{
+	"name": "adf-rapollocare",
+	"properties": {
+		"globalParameters": {
+			"email_recipient": {
+				"type": "string",
+				"value": "ramkumartech17@gmail.com"
+			}
+		}
+	},
+	"location": "centralindia"
+}
