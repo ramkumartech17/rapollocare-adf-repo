@@ -1,0 +1,131 @@
+{
+	"name": "PL_SEND_EMAIL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Read All Tables Status",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "select * from ctrl.audit_log where adf_run_id='@{pipeline().parameters.adf_run_id}';",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Prepare Email Header",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "body_header",
+					"value": "Ingestion and Transformation process for RapolloCare project has been completed and below is the status:"
+				}
+			},
+			{
+				"name": "Prepare Email Footer",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "body_header",
+					"value": "For any support please reach out to abc@gmail.com"
+				}
+			},
+			{
+				"name": "Prepare Email Subject",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Check overall failed count",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "email_subject",
+					"value": {
+						"value": "@{pipeline().globalParameters.env}|@{if(greater(activity('Check overall failed count').output.firstRow.count,0),'FAILED','SUCCESS')}|RAPOLLOCARE MASTER RUN",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Check overall failed count",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT COUNT(*) as count FROM ctrl.audit_log \nWHERE adf_run_id='@{pipeline().parameters.adf_run_id}'\nAND status != 'SUCCESS'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"adf_run_id": {
+				"type": "string",
+				"defaultValue": "557ec364-c30d-4e13-9ad4-0a0b6a803d7e"
+			}
+		},
+		"variables": {
+			"body_header": {
+				"type": "String"
+			},
+			"email_subject": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
