@@ -1,1 +1,14 @@
-{}
+{
+	"email_recipient": {
+		"type": "string",
+		"value": "ramkumartech17@gmail.com"
+	},
+	"env": {
+		"type": "string",
+		"value": "DEV"
+	},
+	"logic_app_url": {
+		"type": "string",
+		"value": "https://prod-23.centralindia.logic.azure.com:443/workflows/61551fb80add4f2e93680c14d5069788/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=Pue6KJm36QcYP8N7FjRFykrOPLFtCUS-xlNhQmLLHSA"
+	}
+}
